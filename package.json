@@ -15,6 +15,14 @@
   "dependencies": {
     "underscore": ">=1.8.3"
   },
+  "peerDependencies": {
+    "jquery": ">=1.11.0"
+  },
+  "peerDependenciesMeta": {
+    "jquery": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "coffeescript": "^2.7.0",
     "cpy-cli": "^5.0.0",

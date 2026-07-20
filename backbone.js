@@ -23,7 +23,13 @@
   // Next for Node.js or CommonJS. jQuery may not be needed as a module.
   } else if (typeof exports !== 'undefined') {
     var _ = require('underscore'), $;
-    try { $ = require('jquery'); } catch (e) {}
+    // Indirect the optional jQuery require through a variable so that
+    // Webpack, Rollup, esbuild, packd and friends do not try to resolve
+    // it at bundle time. The literal `require('jquery')` form was being
+    // statically analyzed by bundlers and failing the build for users
+    // who don't actually want jQuery (#4184).
+    var nodeRequire = typeof require === 'function' && require;
+    try { if (nodeRequire) $ = nodeRequire('jquery'); } catch (e) {}
     factory(root, exports, _, $);
 
   // Finally, as a browser global.
